@@ -6,7 +6,6 @@ on:
       - 'v*'
   workflow_dispatch:
 
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,4 +28,3 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: esp32-webpanel.ino.esp32.esp32.bin
-
