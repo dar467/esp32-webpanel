@@ -12,15 +12,19 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Setup ESP-IDF
-        uses: espressif/esp-idf-ci-action@v1
-        with:
-          esp_idf_version: v5.1
+      - name: Setup Arduino CLI
+        uses: arduino/setup-arduino-cli@v1
+
+      - name: Install ESP32 platform
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install esp32:esp32
 
       - name: Build firmware
-        run: idf.py build
+        run: arduino-cli compile --fqbn esp32:esp32:esp32 esp32-webpanel.ino
 
       - name: Upload firmware to Release
         uses: softprops/action-gh-release@v1
         with:
-          files: build/*.bin
+          files: esp32-webpanel.ino.esp32.esp32.bin
+
